@@ -1,4 +1,4 @@
-# normal-life
+# 平凡人生(normal-life)
 ## 啟動此SideProject原因 
 
 新工作開始後，開始寫的第一個Side Project
