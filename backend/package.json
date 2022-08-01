@@ -13,6 +13,8 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "sequelize": "^6.21.3",
+    "sqlite3": "^5.0.11"
   }
 }
