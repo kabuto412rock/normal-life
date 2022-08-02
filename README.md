@@ -8,7 +8,11 @@
 雖然這樣說，因為目前工作是偏Node.js後端的工作，沒有在接觸前端，
 但看大家在用Vue.js感覺蠻酷的，也想拿來試試看是否真的有那麼簡單上手。
 
-
+工作日開發規則(假日不受此限):
+- 早上不能寫Side Project
+- 不能超過1小時半在寫Side Project
+- 都要寫code並增加功能，重構不算新功能
+- 都要push到Github
 ## Develop Log
 2022/07/31
 今天第一步就是先把前後端環境初始化一下，至少前後端兩邊都可以跑起來這樣...
@@ -18,9 +22,9 @@
 目前只做了新增、列出全部的API
 
 2022/08/02
-DONE:查詢的部份還缺少limit、offset
-TODO:刪除單筆、更新單筆的API
-TODO:使用Vue去呼叫這些API使用
+DONE:查詢的API增加limit、offset參數功能
+DONE:刪除單筆、更新單筆的API
+TODO:使用Vue去呼叫這些API使用(明天做)
 
 ## 程式碼架構
 - backend 

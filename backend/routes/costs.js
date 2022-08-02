@@ -54,4 +54,20 @@ router.delete('/:id', asyncHandler(async (req, res, next) => {
     })
 
 }));
+
+// 更新指定的花費紀錄
+router.patch('/:id', asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+    const { name, cash, remark } = req.body;
+    const [success] = await Cost.update({ name, cash, remark }, {
+        where: {
+            id
+        }
+    });
+    res.json({
+        success,
+        msg: success ? `The cost[${id}] update success` : `The cost update failed`
+    })
+
+}));
 module.exports = router;
