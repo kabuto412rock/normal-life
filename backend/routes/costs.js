@@ -14,7 +14,6 @@ router.get('/', asyncHandler(async (req, res, next) => {
     if (limit !== undefined) limit = integerCheckFormater(limit, 1, 20);
     if (offset !== undefined) offset = integerCheckFormater(offset, 0, undefined);
 
-
     const costs = await Cost.findAll({
         limit,
         offset
@@ -39,4 +38,20 @@ router.post('/', function (req, res, next) {
     });
 
 });
+
+// 刪除花費紀錄
+router.delete('/:id', asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+
+    const success = await Cost.destroy({
+        where: {
+            id
+        }
+    });
+    res.json({
+        success,
+        msg: success ? `The cost[${id}] delete success` : `The cost delete fail...`
+    })
+
+}));
 module.exports = router;

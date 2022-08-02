@@ -16,14 +16,9 @@
 2022/08/01
 引入Sequalize，並且實做日常花費的REST API(Daily Cost)
 目前只做了新增、列出全部的API
-TODO:查詢的部份還缺少限制條件、過濾條件，明天加
-TODO:刪除單筆、更新單筆的API
-TODO:使用Vue去呼叫這些API使用
 
 2022/08/02
-TODO:查詢的部份還缺少limit、offset，過濾條
-
-
+DONE:查詢的部份還缺少limit、offset
 TODO:刪除單筆、更新單筆的API
 TODO:使用Vue去呼叫這些API使用
 
