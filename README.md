@@ -19,6 +19,14 @@
 TODO:查詢的部份還缺少限制條件、過濾條件，明天加
 TODO:刪除單筆、更新單筆的API
 TODO:使用Vue去呼叫這些API使用
+
+2022/08/02
+TODO:查詢的部份還缺少limit、offset，過濾條
+
+
+TODO:刪除單筆、更新單筆的API
+TODO:使用Vue去呼叫這些API使用
+
 ## 程式碼架構
 - backend 
 - frontend
