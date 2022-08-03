@@ -30,7 +30,7 @@ router.get('/', asyncHandler(async (req, res, next) => {
 // 增加花費紀錄
 router.post('/', function (req, res, next) {
     const { name, cash, remark } = req.body;
-
+    console.log(`增加花費紀錄{${name}, ${cash}, ${remark}}`)
     Cost.create({ name, cash, remark }).then(data => {
         res.json({ success: true, ...data })
     }).catch(err => {
