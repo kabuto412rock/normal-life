@@ -26,11 +26,12 @@ DONE:查詢的API增加limit、offset參數功能
 DONE:刪除單筆、更新單筆的API
 
 2022/08/03
-TODO:使用Vue去呼叫這些API使用
 目前陷入困境，哈哈竟然忘記axios的API，但想先休息，明天在思考為什麼前端傳了body，也沒出現cors，
 為什麼後端收不到req.body，但後端有收到request
-TODO:學習如何使用Vue-Router分配頁面
+2022/08/04
+使用Vue請求更新日常花費列表
 
+TODO:學習如何使用Vue-Router分配頁面、更新、刪除還需要做，列表也可以做單頁顯示筆數,換頁
 ## 程式碼架構
 - backend 
 - frontend
