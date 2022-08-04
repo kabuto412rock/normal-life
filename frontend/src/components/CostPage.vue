@@ -1,15 +1,22 @@
 <script >
-import { addCost } from "../models/costApi";
+import { addCost, getCosts } from "../models/costApi";
 export default {
+
     data() {
         return {
             records: [],
-            isLoading: true,
+            isLoading: false,
             newInput: {
                 cash: 5,
                 name: '',
                 remark: ''
-            }
+            },
+            showCosts: {
+                limit: 10,
+                offset: 0,
+            },
+            costs: [],
+
         }
     },
     methods: {
@@ -21,9 +28,16 @@ export default {
             }
             try {
                 const response = await addCost({ cash, name, remark });
-                console.log('成功' + JSON.stringify(response.data));
-            } catch (err) {
+                const data = response?.data;
+                console.log('成功' + JSON.stringify(data));
+                if (!(data?.success === true)) throw new Error('無回傳成功狀態');
 
+                const insertId = data?.dataValues?.id;
+                if (insertId === undefined) throw new Error('沒有取得新增ID');
+
+                this.costs.push({ cash, name, remark, id: insertId })
+            } catch (err) {
+                return alert(`新增失敗，大笨蛋！ ${err}`)
             }
             // 重設輸入
             this.newInput = {
@@ -31,8 +45,21 @@ export default {
                 name: '',
                 remark: '',
             }
+        },
+        async refreshCostList() {
+            try {
+                const { limit, offset } = this.showCosts;
+                const response = await getCosts({ limit, offset });
+                if (!(response?.data?.success === true)) throw new Error('無回傳成功狀態');
+                this.costs = response?.data?.costs ?? [];
+            } catch (error) {
+                return alert('請求列表失敗，大笨蛋！')
+            }
         }
-    }
+    },
+    mounted() {
+        this.refreshCostList()
+    },
 }
 </script>
 
@@ -52,6 +79,18 @@ export default {
             <input id="newRemark" type="text" v-model="newInput.remark">
         </div>
         <button @click="addNewCost">新增花費</button>
+    </div>
+
+    <div>
+        <button @click="refreshCostList">刷新列表</button>
+        <div>
+            <div v-for="cost in costs" :key="cost.id">
+                {{ cost.name }}
+                {{ cost.cash }}
+                {{ cost.remark }}
+
+            </div>
+        </div>
     </div>
 </template>
 
