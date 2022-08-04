@@ -2,8 +2,8 @@ import axios from "axios";
 import qs from "qs";
 
 export function addCost(data) {
-
-    var formData = qs.stringify({ data });
+    const { cash, name, remark } = data;
+    var formData = qs.stringify({ cash, name, remark });
     var config = {
         method: 'post',
         url: 'http://localhost:3000/api/costs/',
