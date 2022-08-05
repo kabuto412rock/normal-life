@@ -26,6 +26,17 @@ export function getCosts({ limit, offset }) {
     return axios(config);
 
 }
+
+// 刪除一筆日常花費API
+export function deleteCost(id) {
+    id = integerCheckFormater(id, 0, undefined);
+    var config = {
+        method: 'delete',
+        url: `http://localhost:3000/api/costs/${id}`,
+        headers: {}
+    };
+    return axios(config)
+}
     // .then(function (response) {
     //     console.log(JSON.stringify(response.data));
     // })

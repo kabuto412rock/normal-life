@@ -1,7 +1,6 @@
 <script >
-import { addCost, getCosts } from "../models/costApi";
+import { addCost, getCosts, deleteCost } from "../models/costApi";
 export default {
-
     data() {
         return {
             records: [],
@@ -16,7 +15,6 @@ export default {
                 offset: 0,
             },
             costs: [],
-
         }
     },
     methods: {
@@ -35,7 +33,7 @@ export default {
                 const insertId = data?.dataValues?.id;
                 if (insertId === undefined) throw new Error('沒有取得新增ID');
 
-                this.costs.push({ cash, name, remark, id: insertId })
+                this.costs.push({ cash, name, remark, id: insertId, checked: false })
             } catch (err) {
                 return alert(`新增失敗，大笨蛋！ ${err}`)
             }
@@ -55,6 +53,17 @@ export default {
             } catch (error) {
                 return alert('請求列表失敗，大笨蛋！')
             }
+        },
+        async deleteSelected() {
+            const deletePromises = this.costs.filter((cost) => cost.checked === true).map((cost) => deleteCost(cost.id));
+            const results = await Promise.allSettled(deletePromises);
+
+            // TODO:偷吃步的方式直接去跟Server要最新的資料，刷新costs
+            this.refreshCostList()
+            // const deletedIds = results.filter((result) => (result.status === 'fulfilled' && result.value?.data?.success === 1)).map(result => result.value?.data)
+            // console.log(`deletedIds = ${JSON.stringify(deletedIds)}`)
+            // const aliveCosts = this.costs.filter((cost) => !(deletedIds.includes(cost.id)));
+            // this.costs = aliveCosts;
         }
     },
     mounted() {
@@ -84,7 +93,11 @@ export default {
     <div>
         <button @click="refreshCostList">刷新列表</button>
         <div>
+            <div>
+                <button @click="deleteSelected">刪除勾選項目</button>
+            </div>
             <div v-for="cost in costs" :key="cost.id">
+                <input type="checkbox" v-model="cost.checked">
                 {{ cost.name }}
                 {{ cost.cash }}
                 {{ cost.remark }}
