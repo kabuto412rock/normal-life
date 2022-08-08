@@ -37,6 +37,24 @@ export function deleteCost(id) {
     };
     return axios(config)
 }
+// 更新一筆日常花費API
+export function updateCost(cost) {
+    var data = qs.stringify({
+        'name': cost.name,
+        'cash': cost.cash,
+        'remark': cost.remark
+    });
+
+    var config = {
+        method: 'patch',
+        url: `http://localhost:3000/api/costs/${cost.id}`,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: data
+    };
+    return axios(config);
+}
     // .then(function (response) {
     //     console.log(JSON.stringify(response.data));
     // })
