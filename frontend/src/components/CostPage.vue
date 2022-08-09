@@ -56,13 +56,21 @@ export default {
             }
         },
         async deleteSelected() {
-            const deletePromises = this.costs.filter((cost) => cost.checked === true).map((cost) => deleteCost(cost.id));
+            const deletePromises = this.costs.filter((cost) => cost.checked === true).map((cost) =>
+                deleteCost(cost.id).then((response) => {
+                    if (response?.data?.success == 1) {
+                        return { success: 1, id: cost.id }
+                    }
+                    return { success: 0, id: cost.id }
+                })
+            );
             const results = await Promise.allSettled(deletePromises);
 
             // TODO:偷吃步的方式直接去跟Server要最新的資料，刷新costs
             // this.refreshCostList()
-            const deletedIds = results.filter((result) => (result.status === 'fulfilled' && result.value?.data?.success === 1)).map(result => result.value?.data)
-            console.log(`deletedIds: ${deletedIds}`);
+            const deletedIds = results.filter((result) => (result.status === 'fulfilled' && result?.value?.success === 1)).map(result => result.value?.id);
+
+            this.costs = this.costs.filter((cost) => !deletedIds.includes(cost.id));
             // console.log(`deletedIds = ${JSON.stringify(deletedIds)}`)
             // const aliveCosts = this.costs.filter((cost) => !(deletedIds.includes(cost.id)));
             // this.costs = aliveCosts;
