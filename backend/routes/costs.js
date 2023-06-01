@@ -49,7 +49,7 @@ router.delete('/:id', asyncHandler(async (req, res, next) => {
         }
     });
     res.json({
-        success,
+        success: success,
         msg: success ? `The cost[${id}] delete success` : `The cost delete fail...`
     })
 
