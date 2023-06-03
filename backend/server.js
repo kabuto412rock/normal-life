@@ -1,8 +1,12 @@
 const app = require('./app');
 const db = require('./models');
-const init = async () => {
+const init = async (options={}) => {
+    const {force} = options
+
     try {
-        await db.sequelize.sync()   
+        await db.sequelize.sync({
+            force
+        })   
         console.log("Synced db.");
     } catch (err) {
         console.log("Failed to sync db: " + err.message);  
