@@ -92,15 +92,15 @@ export default {
         <h1>日常花費記錄器</h1>
         <div>
             <label for="newName">名目</label>
-            <input id="newName" type="text" v-model="newInput.name" @keyup="updateSingleCost">
+            <input id="newName" type="text" v-model="newInput.name">
         </div>
         <div>
             <label for="newCash">金額</label>
-            <input v-model.number="newInput.cash" min="0" step="1" type="number" @keyup="updateSingleCost" />
+            <input v-model.number="newInput.cash" min="0" step="1" type="number" />
         </div>
         <div>
             <label for="newRemark">註解</label>
-            <input id="newRemark" type="text" v-model="newInput.remark" @keyup="updateSingleCost">
+            <input id="newRemark" type="text" v-model="newInput.remark">
         </div>
         <button @click="addNewCost">新增花費</button>
     </div>
