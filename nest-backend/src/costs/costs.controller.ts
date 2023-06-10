@@ -7,6 +7,10 @@ import {
   Param,
   Delete,
   Query,
+  HttpException,
+  HttpStatus,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { CostsService } from './costs.service';
 import { CreateCostDto } from './dto/create-cost.dto';
@@ -14,6 +18,7 @@ import { UpdateCostDto } from './dto/update-cost.dto';
 import { integerCheckFormater } from '../utils';
 
 @Controller('/api/costs')
+@UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
 export class CostsController {
   constructor(private readonly costsService: CostsService) {}
 
@@ -21,9 +26,9 @@ export class CostsController {
   async create(@Body() createCostDto: CreateCostDto) {
     try {
       const result = await this.costsService.create(createCostDto);
-      return { success: true, dataValues: result };
+      return { success: 1, dataValues: result };
     } catch (error) {
-      return { success: false, msg: 'Add cost failed...' };
+      return { success: 0, msg: 'Add cost failed...' };
     }
   }
 
@@ -35,9 +40,9 @@ export class CostsController {
         offset = integerCheckFormater(offset, 0, undefined);
 
       const costs = await this.costsService.findAll(limit, offset);
-      return { success: true, costs: costs };
+      return { success: 1, costs: costs };
     } catch (error) {
-      return { success: false, costs: [] };
+      return { success: 0, costs: [] };
     }
   }
 
@@ -48,14 +53,24 @@ export class CostsController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateCostDto: UpdateCostDto) {
-    const result = await this.costsService.update(+id, updateCostDto);
-    const success = id == result.id ? 1 : 0;
+    // // 如果名稱、金額未填，返回錯誤
+    // if (updateCostDto.cash || updateCostDto.name) {
+    //   throw new HttpException(
+    //     { success: 0, msg: '名稱、金額必須要填' },
+    //     HttpStatus.BAD_REQUEST,
+    //   );
+    // }
 
+    const result = await this.costsService.update(+id, updateCostDto);
+    if (+id != result.id) {
+      throw new HttpException(
+        { success: 0, msg: 'The cost update failed' },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     return {
-      success: success,
-      msg: success
-        ? `The cost[${id}] update success`
-        : `The cost update failed`,
+      success: 1,
+      msg: `The cost[${id}] update success`,
     };
   }
 

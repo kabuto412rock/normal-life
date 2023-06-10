@@ -52,8 +52,8 @@ TODO:學習如何使用Vue-Router分配頁面，列表也可以做單頁顯示�
 
 ## 啟動方式(開發環境)
 ```bash
-# 啟動後端Server(Express.js框架)
-$ (cd ./backend;  npm run dev) 
+# 啟動後端Server(NestJS框架)
+$ (cd ./nest-backend;  npm run start:dev) 
 
 # 啟動前端Server
 $ (cd ./frontend; npm run dev)

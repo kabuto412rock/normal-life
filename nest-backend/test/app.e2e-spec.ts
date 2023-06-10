@@ -49,7 +49,7 @@ describe('查詢花費紀錄 [GET] ' + API_COST_URL, () => {
       .get(API_COST_URL)
       .set('Accept', 'application/json');
     expect(response.status).toEqual(200);
-    expect(response.body.success).toEqual(true);
+    expect(response.body.success).toEqual(1);
     expect(response.body.costs).toHaveLength(0);
   });
 
@@ -66,7 +66,7 @@ describe('查詢花費紀錄 [GET] ' + API_COST_URL, () => {
     const costs = searchResponse1.body.costs;
 
     expect(searchResponse1.status).toEqual(200);
-    expect(searchResponse1.body.success).toEqual(true);
+    expect(searchResponse1.body.success).toEqual(1);
     expect(costs).toHaveLength(30);
 
     for (let i = 0; i < 30; i++) {
@@ -96,7 +96,7 @@ describe('查詢花費紀錄 [GET] ' + API_COST_URL, () => {
       .get(API_COST_URL + '?' + queryParamsStr)
       .set('Accept', 'application/json');
     expect(searchResponse.status).toEqual(200);
-    expect(searchResponse.body.success).toEqual(true);
+    expect(searchResponse.body.success).toEqual(1);
 
     const costs = searchResponse.body.costs;
     expect(costs).toHaveLength(15);
@@ -135,7 +135,7 @@ describe('新增每日花費 [POST] /api/costs', () => {
       .post(API_COST_URL)
       .set('Accept', 'application/json')
       .send(payload);
-    expect(response.body).toHaveProperty('success', true);
+    expect(response.body).toHaveProperty('success', 1);
     expect(response.body).toHaveProperty('dataValues');
     expect(response.body.dataValues).toHaveProperty('id', 1);
     expect(response.body.dataValues).toHaveProperty('createdAt');
@@ -147,7 +147,7 @@ describe('新增每日花費 [POST] /api/costs', () => {
       .get(API_COST_URL)
       .set('Accept', 'application/json');
     expect(response.status).toEqual(200);
-    expect(response.body.success).toEqual(true);
+    expect(response.body.success).toEqual(1);
     expect(response.body.costs).toHaveLength(1);
     expect(response.body.costs[0]).toEqual(
       expect.objectContaining({
