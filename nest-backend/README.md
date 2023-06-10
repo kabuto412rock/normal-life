@@ -51,7 +51,7 @@ $ npm run start:prod
 # unit tests
 $ npm run test
 
-# e2e tests
+# e2e tests (目前後端只有寫e2e的API測試)
 $ npm run test:e2e
 
 # test coverage

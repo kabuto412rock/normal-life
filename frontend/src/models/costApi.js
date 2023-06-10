@@ -26,6 +26,15 @@ export function getCosts({ limit, offset }) {
     return axios(config);
 
 }
+// 取得所有日常花費API
+export function getCostById(id) {
+    const config = {
+        method: 'get',
+        url: `http://localhost:3000/api/costs/${id}`,
+        headers: {}
+    };
+    return axios(config);
+}
 
 // 刪除一筆日常花費API
 export function deleteCost(id) {
@@ -55,6 +64,7 @@ export function updateCost(cost) {
     };
     return axios(config);
 }
+
     // .then(function (response) {
     //     console.log(JSON.stringify(response.data));
     // })
